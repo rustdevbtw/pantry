@@ -21,7 +21,20 @@ build:
     linux/aarch64:
       github.com/numactl/numactl: ^2 # downloaded cabal needs this
     tukaani.org/xz: 5
+    linux:
+      llvm.org: '*'
   script:
+    #### TEST REMOVE ME ####
+    - run: sed -i
+        -e 's/("C compiler command", "gcc")/("C compiler command", "clang")/'
+        -e 's/("C\+\+ compiler command", "g\+\+")/("C++ compiler command", "clang"++)/'
+        -e 's/,("C compiler supports -no-pie", "YES")/,("C compiler supports -no-pie", "NO")/'
+        -e 's/,("Haskell CPP command", "gcc")/,("Haskell CPP command", "clang")/'
+        -e 's/,("ld command", "ld")/,("ld command", "ld.lld")/'
+        settings
+      working-directory: ${{deps.haskell.org.prefix}}/ghc/{{deps.haskell.org.version}}/lib/ghc-{{deps.haskell.org.version}}/lib
+      if: linux
+
     # utf-8 issues
     - run: export HOME="$(mktemp -d)"
       if: linux
