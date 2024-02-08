@@ -20,8 +20,6 @@ build:
     curl.se: '*'
     linux/aarch64:
       github.com/numactl/numactl: ^2 # downloaded cabal needs this
-    linux:
-      llvm.org: ^15
     tukaani.org/xz: 5
   script:
     # utf-8 issues
@@ -68,12 +66,7 @@ build:
     linux/aarch64:
       BOOTSTRAP: https://downloads.haskell.org/ghcup/unofficial-bindists/cabal/3.7.0.0-pre20220407/cabal-install-3.7-aarch64-linux-deb10.tar.xz
     linux:
-      CC: clang
-      LD: ld.lld
-      AS: llvm-as
       ADDITIONAL_CABAL_FLAGS:
-        - --with-gcc=clang
-        - --with-ld=ld.lld
         - -v3
         # else segfaults
         - --enable-relocatable
