@@ -16,7 +16,7 @@ provides:
 
 build:
   dependencies:
-    haskell.org: '<9.4'
+    haskell.org: '*'
     curl.se: '*'
     linux/aarch64:
       github.com/numactl/numactl: ^2 # downloaded cabal needs this
