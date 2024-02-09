@@ -24,21 +24,6 @@ build:
     linux:
       llvm.org: '*'
   script:
-    #### TEST REMOVE ME ####
-    - run: sed -i
-        -e 's/("C compiler command", "gcc")/("C compiler command", "clang")/'
-        -e 's/("C\+\+ compiler command", "g\+\+")/("C++ compiler command", "clang"++)/'
-        -e 's/,("C compiler supports -no-pie", "YES")/,("C compiler supports -no-pie", "NO")/'
-        -e 's/,("Haskell CPP command", "gcc")/,("Haskell CPP command", "clang")/'
-        -e 's/,("ld command", "ld")/,("ld command", "ld.lld")/'
-        settings
-      working-directory: ${{deps.haskell.org.prefix}}/ghc/{{deps.haskell.org.version}}/lib/ghc-{{deps.haskell.org.version}}/lib
-      if: linux
-
-    # utf-8 issues
-    - run: export HOME="$(mktemp -d)"
-      if: linux
-
     - run: |
         if test ! -e .bootstrap/cabal; then
           if test ! -e .bootstrap; then
@@ -57,11 +42,10 @@ build:
     # this is not an acceptable solution, do you know a better one? pls PR 🙏
     #FIXME also this sed line sucks but I got bored trying to make it work
     - |
-      sed -i.bak \
+      sed -i \
         -e 's/build-depends: base.*/build-depends: base >=4.10 \&\& <5/' \
         -e 's/text.*>=.*/text       >= 1.2.3    \&\& < 3,/' \
         cabal-install.cabal
-      rm cabal-install.cabal.bak
     # ^^ SEE https://github.com/haskell/cabal/issues/8118
     - mkdir -p "{{prefix}}/bin"
     - ./.bootstrap/cabal v2-update
@@ -86,6 +70,6 @@ build:
         - --ghc-option=-fPIC
         - --ghc-option=-optl=-pie
 
-test: |
-  cabal --config-file=./config user-config init
-  cabal --config-file=./config info Cabal
+test:
+  - cabal --config-file=./config user-config init
+  - cabal --config-file=./config info Cabal
