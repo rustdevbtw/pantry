@@ -22,6 +22,7 @@ build:
       github.com/numactl/numactl: ^2 # downloaded cabal needs this
     tukaani.org/xz: 5
     linux:
+      gnu.org/gcc: '*' # haskell should be using llvm, but it still needs libc++
       gnu.org/binutils: '*' # haskell should be using llvm, but it still wants ld.gold
   script:
     - run: |
