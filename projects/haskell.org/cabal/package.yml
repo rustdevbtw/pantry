@@ -25,6 +25,10 @@ build:
       gnu.org/gcc: '*' # haskell should be using llvm, but it still needs libc++
       gnu.org/binutils: '*' # haskell should be using llvm, but it still wants ld.gold
   script:
+    # ensure llvm is first in PATH
+    - run: export PATH="{{deps.llvm.org.prefix}}/bin:$PATH"
+      if: linux
+
     - run: |
         if test ! -e .bootstrap/cabal; then
           if test ! -e .bootstrap; then
