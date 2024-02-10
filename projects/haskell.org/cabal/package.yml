@@ -72,7 +72,7 @@ build:
         - -v3
         # else segfaults
         - --enable-relocatable
-        - --ghc-option=-fPIC
+        #- --ghc-option=-fPIC
         - --ghc-option=-optl=-pie
       AR: ${{deps.llvm.org.prefix}}/bin/llvm-ar
 
