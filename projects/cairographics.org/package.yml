@@ -26,12 +26,12 @@ build:
   dependencies:
     linux:
       # error: "XXX: No mutex implementation found.  Cairo will not work with multiple threads.  Define CAIRO_NO_MUTEX to 1 to acknowledge and accept this limitation and compile cairo without thread-safety support."
-      llvm.org: <16
+      llvm.org: <15
     #FIXME or fontconfig detection fails
     #FIXME build looks for 2.4.9 even when it has 2.5.0
     libexpat.github.io: =2.4.9
     gnome.org/gobject-introspection: 1
-    gnu.org/libtool: ^2
+    # gnu.org/libtool: ^2
     mesonbuild.com: ^1
     ninja-build.org: ^1
   script:
