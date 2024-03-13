@@ -56,7 +56,11 @@ build:
       working-directory: ${{ prefix }}/include
 
     - run: |
-        tmp_dir=$(ls)
+        if [ -d cairo ]; then
+          tmp_dir=cairo
+        else
+          tmp_dir=$(ls | head -n1)
+        fi
         mv $tmp_dir/* .
         rmdir $tmp_dir
       working-directory: ${{ prefix }}/lib
